@@ -1,0 +1,15 @@
+<div class="container-fluid">
+
+    <div class="form-group">
+        <label for="newTask">You can add a new task here:</label>
+        <input name="newTask" type="text" class="form-group" (keyup.enter)="add($event.target.value)">
+    </div>
+
+    <div class="content">
+        <div *ngFor="let taskItem of listAll()" class="card">
+            <app-task [task]="taskItem"
+                      (remove)="removeTask($event)"
+                      (update)="updateTask($event)"></app-task>
+        </div>
+    </div>
+</div>

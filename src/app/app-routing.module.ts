@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { TasklistComponent } from './tasklist/tasklist.component';
+import { TasklistComponent } from './pages/tasklist/tasklist.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'/task', pathMatch: 'full'},
