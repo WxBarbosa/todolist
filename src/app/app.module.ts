@@ -13,6 +13,7 @@ import { FooterComponent } from './pages/footer/footer/footer.component';
 import { TasklistComponent } from './pages/tasklist/tasklist.component';
 import { TaskService } from './services/task.service';
 import { FormsModule } from '@angular/forms';
+import { StorageService } from './services/storage.service';
 import { TaskComponent } from './components/task/task.component';
 
 
@@ -32,7 +33,7 @@ import { TaskComponent } from './components/task/task.component';
     FormsModule
   ],
   exports: [],
-  providers: [TaskService],
+  providers: [TaskService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

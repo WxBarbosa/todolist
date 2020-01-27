@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../domain/models/task.model';
 
@@ -9,21 +9,29 @@ import { Task } from '../../domain/models/task.model';
 })
 export class TasklistComponent implements OnInit {
 
-  @Input() task : Task;
-
+  todoList : Task[] = []
   constructor(private taskService : TaskService) { 
 
   }
 
   ngOnInit() {
-    this.taskService = new TaskService();
+    this.todoList = this.listAll();
   }
 
   listAll(){
     return this.taskService.listAll();
   }
 
-  onClick(){
-    console.log(this.task);
+  add(taskTitle : string){
+    console.log(taskTitle)
+    this.taskService.add(taskTitle);
+  }
+
+  removeTask(task){
+    this.taskService.remove(task);
+  }
+
+  updateTask(task){
+    this.taskService.update(task);
   }
 }

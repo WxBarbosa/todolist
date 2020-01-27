@@ -1,9 +1,15 @@
-<div class="container-fluid ">
-    <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-10 col-sm-12">
-            <div class="list-group" *ngFor="let task of listAll()">
-                <a href="#" [(ngModel)]="task.isDone" ngDefaultControl  (click)="onClick()" class="list-group-item list-group-item-action">{{task.description}}</a>
-            </div>
+<div class="container-fluid">
+
+    <div class="form-group">
+        <label for="newTask">You can add a new task here:</label>
+        <input name="newTask" type="text" class="form-group" (keyup.enter)="add($event.target.value)">
+    </div>
+
+    <div class="content">
+        <div *ngFor="let taskItem of listAll()" class="card">
+            <app-task [task]="taskItem"
+                      (remove)="removeTask($event)"
+                      (update)="updateTask($event)"></app-task>
         </div>
     </div>
 </div>

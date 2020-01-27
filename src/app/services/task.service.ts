@@ -1,5 +1,9 @@
 import { Injectable, Input } from '@angular/core';
 import { Task } from '../domain/models/task.model';
+import { StorageService } from './storage.service';
+
+
+const taskListStorageKey = 'Todo_List';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +12,16 @@ export class TaskService {
 
   protected taskList : Task[]
 
-  constructor() { 
-    this.taskList = [
-      new Task(1,'Comer comida saudável.',false),
-      new Task(2,'Voltar a treinar algum esporte.',false)
-    ];
+  constructor(private _storageService : StorageService) { 
+    this.taskList = _storageService.getData(taskListStorageKey) || []
+  }
+
+  save(){
+    this._storageService.setData(taskListStorageKey,this.taskList);
+  }
+
+  private getLastId(){
+    return this.taskList.sort().slice(0,0);
   }
 
   listAll(){
@@ -23,11 +32,20 @@ export class TaskService {
     return this.taskList.find(t=>t.id === task.id);
   }
 
-  add(task : Task){
-    this.taskList.push(task);
+  add(taskTitle : string){
+    this.taskList.push(new Task(Math.random(), taskTitle,false)); 
+    this.save();
+  }
+
+  update(task : Task){
+    const index = this.taskList.indexOf(task);
+    this.taskList[index] = {...task};
+    this.save();
   }
 
   remove(task : Task){
-    this.taskList.map(t=>t.id != task.id);
+    const index = this.taskList.indexOf(task);
+    this.taskList.splice(index, 1);
+    this.save();
   }
 }
